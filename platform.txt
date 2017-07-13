@@ -1,11 +1,11 @@
 
-# panStamp NRG Core and platform.
+# OLIMEX Core and platform.
 # ------------------------------
 
 # For more info:
 # https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5---3rd-party-Hardware-specification
 
-name=panStamp MSP430 boards
+name=OLIMEX MSP430 dev boards
 version=1.5.6
 
 # NRG compile variables

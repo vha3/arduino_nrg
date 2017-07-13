@@ -22,12 +22,12 @@
  * Creation date: 06/03/2013
  */
 
-#include "panstamp.h"
+#include "olimex.h"
 
 #ifdef FHSS_ENABLED
 bool resetFHSS = false;
 
-uint8_t PANSTAMP::hopSequence[] = {22,32,25,34,41,19,43,23,9,30,7,39,46,2,42,5,8,13,24,3,40,11,35,38,45,
+uint8_t OLIMEX::hopSequence[] = {22,32,25,34,41,19,43,23,9,30,7,39,46,2,42,5,8,13,24,3,40,11,35,38,45,
                                    33,10,26,1,28,18,15,21,12,48,50,27,44,37,36,20,14,47,6,16,49,17,29,4,31};
 
 bool newPacket = true;
@@ -67,17 +67,17 @@ void radioISR(void)
         MRFI_DISABLE_SYNC_PIN_INT();
 
         // Any packet waiting to be read?
-        if (panstamp.radio.receiveData(&ccPacket) > 0)
+        if (olimex.radio.receiveData(&ccPacket) > 0)
         {
           #ifdef FHSS_ENABLED
           // Stop FHSS dwelling timer
-          panstamp.stopDwellingTimer();
+          olimex.stopDwellingTimer();
 
           // Reset FHSS channel and buffer?
           if (resetFHSS)
           {
             resetFHSS = false;
-            panstamp.fhssPacket.length = 0;
+            olimex.fhssPacket.length = 0;
           }
           #endif
 
@@ -85,29 +85,29 @@ void radioISR(void)
           if (ccPacket.crc_ok)
           {
             #ifdef FHSS_ENABLED
-            if (panstamp.getCurrentChannel() < FHSS_MAX_HOPS)
+            if (olimex.getCurrentChannel() < FHSS_MAX_HOPS)
             {
-              panstamp.currentChannelIndex++;
+              olimex.currentChannelIndex++;
 
-              if ((panstamp.fhssPacket.length + ccPacket.length) < CCPACKET_DATA_LEN)
+              if ((olimex.fhssPacket.length + ccPacket.length) < CCPACKET_DATA_LEN)
               {
-                memcpy(panstamp.fhssPacket.data + panstamp.fhssPacket.length, ccPacket.data, ccPacket.length);
-                panstamp.fhssPacket.length += ccPacket.length;
+                memcpy(olimex.fhssPacket.data + olimex.fhssPacket.length, ccPacket.data, ccPacket.length);
+                olimex.fhssPacket.length += ccPacket.length;
 
                 // First burst of packet?
                 if (newPacket)
                 {
                   newPacket = false;
-                  panstamp.fhssPacket.lqi = ccPacket.lqi;
-                  panstamp.fhssPacket.rssi = ccPacket.rssi;
+                  olimex.fhssPacket.lqi = ccPacket.lqi;
+                  olimex.fhssPacket.rssi = ccPacket.rssi;
                 }
 
                 // Burst length = max allowed length?
                 if (ccPacket.length == FHSS_BURST_LENGTH)
                 {
                   // OK, there is probably another burst that is coming
-                  panstamp.radio.setChannel(panstamp.getCurrentChannel());
-                  panstamp.startDwellingTimer();
+                  olimex.radio.setChannel(olimex.getCurrentChannel());
+                  olimex.startDwellingTimer();
                 }
                 else // ccPacket.length < FHSS_BURST_LENGTH // this means end of packet transmission
                 {
@@ -117,14 +117,14 @@ void radioISR(void)
             }
             else  // Back to the initial hop
             {
-              panstamp.currentChannelIndex = 0;
-              panstamp.radio.setChannel(panstamp.getCurrentChannel());
-              panstamp.fhssPacket.length = 0;
+              olimex.currentChannelIndex = 0;
+              olimex.radio.setChannel(olimex.getCurrentChannel());
+              olimex.fhssPacket.length = 0;
             }
 
             #else
-            if (panstamp.ccPacketReceived != NULL)
-              panstamp.ccPacketReceived(&ccPacket);
+            if (olimex.ccPacketReceived != NULL)
+              olimex.ccPacketReceived(&ccPacket);
             #endif
           }
         }
@@ -138,7 +138,7 @@ void radioISR(void)
       RF1AIE |= BIT9 + BIT1;
       RF1AIFG &= ~(BIT9 + BIT1);
       RF1AIES |= BIT9; // Falling edge of RFIFG9
-      panstamp.radio.setRxState();
+      olimex.radio.setRxState();
       __bic_SR_register_on_exit(LPM3_bits);
     }
   }
@@ -153,20 +153,20 @@ void radioISR(void)
  */
 void endOfReception(void)
 {
-  panstamp.stopDwellingTimer();
+  olimex.stopDwellingTimer();
 
   // Dwelling time is over. Reset FHSS channel and buffer
   newPacket = true;
   resetFHSS = true;
-  panstamp.currentChannelIndex = 0;
-  panstamp.radio.setChannel(panstamp.getCurrentChannel());
+  olimex.currentChannelIndex = 0;
+  olimex.radio.setChannel(olimex.getCurrentChannel());
 
   // Any packet received?
-  if (panstamp.fhssPacket.length > 0)
+  if (olimex.fhssPacket.length > 0)
   {
     // Call user function, if any
-    if (panstamp.ccPacketReceived != NULL)
-      panstamp.ccPacketReceived(&panstamp.fhssPacket);
+    if (olimex.ccPacketReceived != NULL)
+      olimex.ccPacketReceived(&olimex.fhssPacket);
   }
 }
 
@@ -179,17 +179,17 @@ __attribute__((interrupt(TIMER0_A0_VECTOR)))
 void DWELLING_TIMER_ISR(void)
 {
   endOfReception();
-  panstamp.radio.setRxOffState(); // Enter idle state
-  panstamp.radio.setRxOnState();  // Back to Rx state
+  olimex.radio.setRxOffState(); // Enter idle state
+  olimex.radio.setRxOnState();  // Back to Rx state
 }
 #endif
 
 /**
- * PANSTAMP
+ * olimex
  *
  * Class constructor
  */
-PANSTAMP::PANSTAMP(void)
+OLIMEX::OLIMEX(void)
 {
   ccPacketReceived = NULL;
 
@@ -202,12 +202,12 @@ PANSTAMP::PANSTAMP(void)
 /**
  * init
  * 
- * Initialize panStamp board
+ * Initialize olimex board
  * 
  * @param freq Carrier frequency
  * @param mode Working mode (speed, ...)
  */
-void PANSTAMP::init(uint8_t freq, uint8_t mode) 
+void OLIMEX::init(uint8_t freq, uint8_t mode) 
 {
   // Disable wireless bootloader
   enableWirelessBoot(false);
@@ -219,9 +219,9 @@ void PANSTAMP::init(uint8_t freq, uint8_t mode)
   INIT_ONBOARD_LED();
 
   // Initialize internal ACC power pin
-  #if defined(__NRG_VERSION_1_0__) || defined(__NRG_VERSION_1_1__)
-  INIT_ACC_POWER();
-  #endif
+  // #if defined(__NRG_VERSION_1_0__) || defined(__NRG_VERSION_1_1__)
+  // INIT_ACC_POWER();
+  // #endif
 
   // Setup radio interface
   radio.init(freq, mode);
@@ -241,7 +241,7 @@ void PANSTAMP::init(uint8_t freq, uint8_t mode)
  *
  * Enable RF reception
  */
-void PANSTAMP::rxOn(void)
+void OLIMEX::rxOn(void)
 {
   MRFI_ENABLE_SYNC_PIN_INT();
 }
@@ -251,7 +251,7 @@ void PANSTAMP::rxOn(void)
  *
  * Disable RF reception
  */
-void PANSTAMP::rxOff(void)
+void OLIMEX::rxOff(void)
 {
   MRFI_DISABLE_SYNC_PIN_INT();
 }
@@ -261,7 +261,7 @@ void PANSTAMP::rxOff(void)
  *
  * Enter LPM4
  */
-void PANSTAMP::sleep(void)
+void OLIMEX::sleep(void)
 {
   // Power down radio
   radio.setPowerDownState();
@@ -284,7 +284,7 @@ void PANSTAMP::sleep(void)
  * @param time Sleep time in seconds
  * @param source Source of interruption (RTCSRC_VLO or RTCSRC_XT1)
  */
-void PANSTAMP::sleepSec(uint16_t time, RTCSRC source)
+void OLIMEX::sleepSec(uint16_t time, RTCSRC source)
 { 
   if (time == 0)
     return;
@@ -312,7 +312,7 @@ void PANSTAMP::sleepSec(uint16_t time, RTCSRC source)
  *  True if the transmission succeeds
  *  False otherwise
  */
-bool PANSTAMP::sendData(CCPACKET packet)
+bool OLIMEX::sendData(CCPACKET packet)
 {
   #ifdef FHSS_ENABLED
   currentChannelIndex = 0;
@@ -352,16 +352,16 @@ bool PANSTAMP::sendData(CCPACKET packet)
 /**
  * reset
  * 
- * Reset panStamp
+ * Reset olimex
  */
-void PANSTAMP::reset(void)
+void OLIMEX::reset(void)
 {
   WDTCTL = 0;
   while (1) {}
 }
    
 /**
- * Pre-instantiate PANSTAMP object
+ * Pre-instantiate OLIMEX object
  */
-PANSTAMP panstamp;
+OLIMEX olimex;
 

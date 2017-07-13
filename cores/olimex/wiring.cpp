@@ -28,11 +28,11 @@
   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
   Boston, MA  02111-1307  USA
    
-  Adapted by Daniel Berenguer for panStamp: 06/28/2014
+  Adapted by Daniel Berenguer for panstamp: 06/28/2014
 */
 
 #include "wiring.h"
-#include "panstamp.h"
+#include "olimex.h"
 
 // the clock source is set so that watch dog timer (WDT) ticks every clock
 // cycle (F_CPU), and the watch dog timer ISR is called every 512 ticks
@@ -72,8 +72,8 @@ void init(void)
 {
   disableWatchDog();
 
-  // Init panStamp object
-  panstamp.init();
+  // Init olimex object
+  olimex.init();
 
   enableWatchDogIntervalMode();
   __eint();

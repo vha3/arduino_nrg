@@ -70,13 +70,15 @@ void CC430CORE::setLowPowerMode(bool lpm4)
     
   // I2C lines remain high to not to sink current through
   // I2C pull-up resistors
-  #ifdef __NRG_VERSION_1_1__
-  P1OUT |= 0x90;
-  #elif __NRG_VERSION_1_0__
-  P1OUT |= 0x30;
-  #else  // __NRG_VERSION_2
-  P1OUT |= 0x18;
-  #endif
+  // #ifdef __NRG_VERSION_1_1__
+  // P1OUT |= 0x90;
+  // #elif __NRG_VERSION_1_0__
+  // P1OUT |= 0x30;
+  // #elif __OLIMEX__
+  P2OUT |= 0x3;
+  // #else  // __NRG_VERSION_2
+  // P1OUT |= 0x18;
+  // #endif
  
   // Configure ports working as alternative functions as outputs
   P1DIR |= portSelection[0];

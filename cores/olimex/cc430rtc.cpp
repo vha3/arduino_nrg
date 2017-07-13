@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015 panStamp <contact@panstamp.com>
+ * Copyright (c) 2015 panstamp <contact@panstamp.com>
  * 
  * This file is part of the panStamp project.
  * 
@@ -22,7 +22,7 @@
  * Creation date: 06/21/2013
  */
 
-#include "panstamp.h"
+#include "olimex.h"
 #include "wiring.h"
 #include "cc430rtc.h"
 #include "cc430f5137.h"
@@ -81,7 +81,7 @@ CC430RTC::CC430RTC(void)
 /**
  * sleep
  * 
- * Put panStamp into Power-down state during "time".
+ * Put olimex into Power-down state during "time".
  * This function uses RTC connected to an external 32.768KHz crystal
  * in order to exit (interrupt) from the power-down state
  * 
@@ -115,11 +115,11 @@ void CC430RTC::sleep(uint16_t time, RTCSRC source)
   RTC_ISR_ENABLE();                   // Enable RTC interrupt
   RTC_START_32BIT_COUNTER();          // Start RTC counter with 32-bit overflow
 
-  panstamp.core.setLowPowerMode();    // Enter low-power mode (LPM3)
+  olimex.core.setLowPowerMode();    // Enter low-power mode (LPM3)
 
   // ZZZZZZZ....
 
-  panstamp.core.setNormalMode();      // Exit low-power mode and enable WDT
+  olimex.core.setNormalMode();      // Exit low-power mode and enable WDT
 }
 
 /**
