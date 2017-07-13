@@ -257,8 +257,8 @@ void CC430RADIO::setRxOnState(void)
   rfState = RFSTATE_RXON;
 
   // Enable LNA on LD-board if any
-  if (hgmEnabled)
-    enableLNA();
+  // if (hgmEnabled)
+    // enableLNA();
 }
 
 /**
@@ -287,8 +287,8 @@ void CC430RADIO::setRxOffState(void)
   rfState = RFSTATE_RXOFF;
 
   // Disable LNA on LD-board if any
-  if (hgmEnabled)
-    disableLNA();
+  // if (hgmEnabled)
+    // disableLNA();
 }
 
 /**
@@ -299,8 +299,8 @@ void CC430RADIO::setRxOffState(void)
 void CC430RADIO::setTxState(void)
 {
   // Enable PA on LD-board if any
-  if (hgmEnabled)
-    enablePA();
+  // if (hgmEnabled)
+    // enablePA();
 
   Strobe(RF_STX);
 }
