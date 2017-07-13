@@ -49,6 +49,11 @@
 #define NOT_ON_TIMER 0
 #define NOT_ON_ADC 0xFF
 
+// REMOVE THESE, FOR PANSTAMP LDO BOARD
+#define HGM     20
+#define LNA_EN  19
+#define PA_EN   18
+
 // Ports
 enum{
   P1 = 1,

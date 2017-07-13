@@ -178,33 +178,33 @@ class CC430RADIO
      *
      * Enable PA and disable LNA on the LD-Board
      */
-    //  inline void enablePA(void)
-    //  {
-    //    digitalWrite(PA_EN, HIGH);
-    //    digitalWrite(LNA_EN, LOW);
-    //  }
+     inline void enablePA(void)
+     {
+       digitalWrite(PA_EN, HIGH);
+       digitalWrite(LNA_EN, LOW);
+     }
 
     // /**
     //  * enableLNA
     //  *
     //  * Enable LNA and disable PA on the LD-Board
     //  */
-    //  inline void enableLNA(void)
-    //  {
-    //    digitalWrite(LNA_EN, HIGH);
-    //    digitalWrite(PA_EN, LOW);
-    //  }
+     inline void enableLNA(void)
+     {
+       digitalWrite(LNA_EN, HIGH);
+       digitalWrite(PA_EN, LOW);
+     }
 
     // /**
     //  * disableLNA
     //  *
     //  * Disable LNA and PA on the LD-Board
     //  */
-    //  inline void disableLNA(void)
-    //  {
-    //    digitalWrite(LNA_EN, LOW);
-    //    digitalWrite(PA_EN, LOW);
-    //  }
+     inline void disableLNA(void)
+     {
+       digitalWrite(LNA_EN, LOW);
+       digitalWrite(PA_EN, LOW);
+     }
 
   public:
     /**
@@ -409,29 +409,29 @@ class CC430RADIO
      *
      * Enable Long-distance board with CC1190 IC in high-gain mode
      */
-     // inline void enableHGM(void)
-     // {
-     //   hgmEnabled = true;
+     inline void enableHGM(void)
+     {
+       hgmEnabled = true;
 
-     //   pinMode(HGM, OUTPUT);
-     //   pinMode(LNA_EN, OUTPUT);
-     //   pinMode(PA_EN, OUTPUT);
+       pinMode(HGM, OUTPUT);
+       pinMode(LNA_EN, OUTPUT);
+       pinMode(PA_EN, OUTPUT);
 
-     //   digitalWrite(HGM, HIGH);
-     //   enableLNA();
-     // }
+       digitalWrite(HGM, HIGH);
+       enableLNA();
+     }
 
     /**
      * disableHGM
      *
      * Disable high-gain mode on the LD-Board
      */
-     // inline void disableHGM(void)
-     // {
-     //   hgmEnabled = false;
+     inline void disableHGM(void)
+     {
+       hgmEnabled = false;
 
-     //   digitalWrite(HGM, LOW);
-     // }
+       digitalWrite(HGM, LOW);
+     }
 };
 
 #endif
