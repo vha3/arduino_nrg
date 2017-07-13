@@ -3,7 +3,7 @@
 menu.rfloader=Wireless bootloader
 
 ##############################################################
-olimex.name=OLIMEX dev board w/ cc430f5137
+olimex.name=Olimex Development Board
 olimex.build.core=olimex
 olimex.upload.tool=ti-bsl
 olimex.upload.protocol=ti-bsl
