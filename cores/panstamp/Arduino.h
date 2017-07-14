@@ -4,6 +4,6 @@
 #include "wiring.h"
 #include "WString.h"
 #include "WCharacter.h"
-#include "olimex.h"
+#include "panstamp.h"
 
 #endif

@@ -4,14 +4,14 @@ menu.rfloader=Wireless bootloader
 
 ##############################################################
 olimex.name=Olimex Development Board
-olimex.build.core=olimex
+olimex.build.core=panstamp
 olimex.upload.tool=ti-bsl
 olimex.upload.protocol=ti-bsl
 olimex.upload.maximum_size=32640
 olimex.build.mcu=cc430f5137
 olimex.build.f_cpu=12000000L
 olimex.build.variant=olimex
-olimex.build.board=OLIMEX_DEV
+olimex.build.board=PANSTAMP_NRG
 
 olimex.ldscript=ldscript
 

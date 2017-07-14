@@ -46,8 +46,8 @@
 #define F_CPU  SYSTEM_CLK_FREQ
 #endif
 
-// #define PANSTAMP_NRG
-#define OLIMEX_DEV
+#define PANSTAMP_NRG
+// #define OLIMEX_DEV
 
 #define HIGH 0x1
 #define LOW  0x0

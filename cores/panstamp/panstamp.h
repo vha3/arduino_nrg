@@ -22,8 +22,8 @@
  * Creation date: 06/03/2013
  */
 
-#ifndef _OLIMEX_H
-#define _OLIMEX_H
+#ifndef _PANSTAMP_H
+#define _PANSTAMP_H
 
 #include "cc430core.h"
 #include "cc430radio.h"
@@ -83,7 +83,7 @@
  * Description:
  * panStamp main class
  */
-class OLIMEX
+class PANSTAMP
 {
   public:
     #ifdef FHSS_ENABLED
@@ -128,7 +128,7 @@ class OLIMEX
      *
      * Class constructor
      */
-    OLIMEX(void);
+    PANSTAMP(void);
 
     /**
      * rxOn
@@ -294,7 +294,7 @@ class OLIMEX
 /**
  * Global PANSTAMP object
  */
-extern OLIMEX olimex;
+extern PANSTAMP panstamp;
 
 #endif
 

@@ -32,7 +32,7 @@
 */
 
 #include "wiring.h"
-#include "olimex.h"
+#include "panstamp.h"
 
 // the clock source is set so that watch dog timer (WDT) ticks every clock
 // cycle (F_CPU), and the watch dog timer ISR is called every 512 ticks
@@ -72,8 +72,8 @@ void init(void)
 {
   disableWatchDog();
 
-  // Init olimex object
-  olimex.init();
+  // Init panstamp object
+  panstamp.init();
 
   enableWatchDogIntervalMode();
   __eint();
