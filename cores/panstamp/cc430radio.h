@@ -92,6 +92,7 @@ enum RFSTATE
 #define CCDEF_FREQ2_433  0x10   // Frequency Control Word, High Byte
 #define CCDEF_FREQ1_433  0xA7   // Frequency Control Word, Middle Byte
 #define CCDEF_FREQ0_433  0x62   // Frequency Control Word, Low Byte
+ 
 #define CCDEF_MDMCFG4_4800    0xC7   // Modem configuration. Speed = 4800 bps
 #define CCDEF_MDMCFG4_38400    0xCA   // Modem configuration. Speed = 38 Kbps
 #define CCDEF_MDMCFG3    0x83   // Modem configuration.
