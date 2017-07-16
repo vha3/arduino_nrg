@@ -24,3 +24,27 @@ olimex.menu.rfloader.disabled.ldscript=ldscript
 ##------------------------------------------------------------
 olimex.menu.rfloader.enabled=on
 olimex.menu.rfloader.enabled.ldscript=ldscript_rf
+
+##############################################################
+sprite.name=Hunter Sprite
+sprite.build.core=panstamp
+sprite.upload.tool=ti-bsl
+sprite.upload.protocol=ti-bsl
+sprite.upload.maximum_size=32640
+sprite.build.mcu=cc430f5137
+sprite.build.f_cpu=12000000L
+sprite.build.variant=sprite
+sprite.build.board=PANSTAMP_NRG
+
+sprite.ldscript=ldscript
+
+## With serial bootloader only
+##------------------------------------------------------------
+sprite.menu.rfloader.disabled=off
+sprite.menu.rfloader.disabled.ldscript=ldscript
+
+## With serial and wireless bootloader
+##------------------------------------------------------------
+sprite.menu.rfloader.enabled=on
+sprite.menu.rfloader.enabled.ldscript=ldscript_rf
+
